@@ -1,0 +1,125 @@
+
+https://pythonprogramming.net/named-entity-recognition-stanford-ner-tagger/
+
+
+
+# -*- coding: utf-8 -*-
+
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar',
+					   encoding='utf-8')
+
+text = 'While in France, Christine Lagarde discussed short-term stimulus efforts in a recent interview with the Wall Street Journal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+
+print(classified_text)
+
+===============================================================================================================================================================================
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+text = 'While in France, Christine Lagarde discussed short-term stimulus efforts in a recent interview with the Wall Street Journal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+
+
+for i in classified_text:
+    print(i)
+			 
+=========================================================================================================================================================================
+
+
+Google bought IBM for 10 dollars i France. Mike was happy about this deal.
+
+============================================================================================================
+
+https://www.quora.com/How-does-Stanford-NER-work
+
+
+
+
+'/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+
+'/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+                       '/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.conll.4class.distsim.crf.ser.gz',
+                       '/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.muc.7class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+
+
+
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',classifiers/english.conll.4class.distsim.crf.ser.gz',classifiers/english.muc.7class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+text = 'Google bought IBM for 10 dollars in France. Mike was happy about this deal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+for i in classified_text:
+    print(i)
+
+
+
+
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+text = 'Google bought IBM for 10 dollars in France. Mike was happy about this deal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+
+
+for i in classified_text:
+    print(i)
+			 
+
+
+			 
+			 
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz,classifiers/english.conll.4class.distsim.crf.ser.gz,classifiers/english.muc.7class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+text = 'Google bought IBM for 10 dollars in France. Mike was happy about this deal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+for i in classified_text:
+    print(i)
+
+
+	
+	
+from nltk.tag import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz,/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.conll.4class.distsim.crf.ser.gz,/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.muc.7class.distsim.crf.ser.gz',
+					   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+text = 'Google bought IBM for 10 dollars in France. Mike was happy about this deal.'
+
+tokenized_text = word_tokenize(text)
+classified_text = st.tag(tokenized_text)
+for i in classified_text:
+    print(i)
+
+	
+	

@@ -1,0 +1,114 @@
+How to run pyspark in pycharm?
+
+===========================================================================
+
+1)Go to the seetings in pycharm --> select project intreperter check the python version --python 2.7
+2)select the project structure click add conetent root -->go to your C Drive and spark location folder(c:\spark\spark\python)
+3)In same way click on add conetent root -->go to your C Drive and spark to python folder location go to lib folder(c:\spark\spark\python\lib\py4j-0.9-src.zip)
+
+write a peace of code and run it ..
+Done!
+===================================================================================================================================================
+
+PySpark Code ==>(Basics like Lamda Function)
+=========================================================
+
+https://annefou.github.io/pyspark/02-mapreduce/
+
+
+docs = inputrdd.flatMap(lambda doc: doc.split())
+docs.map(lambda word: (word,1)).reduceByKey(add)
+
+semioutput=docs.collect()
+
+====================================================================================
+word count
+========================================================================================
+
+from pyspark import SparkContext
+from pyspark.sql import SQLContext
+from pyspark.sql.types import *
+from operator import add
+
+sc = SparkContext('local')
+inputrdd = sc.textFile('C://Users//saidulu.b//Downloads//dataset.txt')
+
+docs = inputrdd.flatMap(lambda doc: doc.split())
+docs.map(lambda word: (word,1)).reduceByKey(add)
+
+semioutput=docs.collect()
+
+print(semioutput)
+===========================================================================================================
+
+from operator import add
+s = 'Hi hi hi bye bye bye word count' 
+seq = s.split()  
+rdd=sc.parallelize(seq).map(lambda word: (word, 1)).reduceByKey(add)
+rdd.collect()
+ 
+======================================================================================================
+
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName(“Pyspark Pgm”)
+sc = SparkContext(conf = conf)
+
+contentRDD =sc.textFile('C://Users//saidulu.b//Downloads//dataset.txt')
+
+nonempty_lines = contentRDD.filter(lambda x: len(x) > 0)
+
+words = nonempty_lines.flatMap(lambda x: x.split(‘ ‘))
+
+wordcount = words.map(lambda x:(x,1)) \
+.reduceByKey(lambda x,y: x+y) \
+.map(lambda x: (x[1], x[0])).sortByKey(False)
+
+for word in wordcount.collect():
+print(word) 
+
+
+
+from pyspark import SparkContext, SparkConf
+
+conf = SparkConf().setAppName('Pyspark Pgm').setMaster('local')
+sc = SparkContext(conf = conf)
+
+contentRDD =sc.textFile('C://Users//saidulu.b//Downloads//dataset.txt')
+
+nonempty_lines = contentRDD.filter(lambda x: len(x) > 0)
+
+words = nonempty_lines.flatMap(lambda x: x.split(''))
+
+wordcount = words.map(lambda x:(x,1)).reduceByKey(lambda x,y: x+y).map(lambda x: (x[1], x[0])).sortByKey(False)
+
+for word in wordcount.collect():
+ print(word)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

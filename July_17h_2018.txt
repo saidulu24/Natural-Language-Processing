@@ -1,0 +1,28 @@
+	newlist = []
+for item in mylist:
+    print(item)
+    if '-' in item[0]:
+        item = tuple(item[0].split(' - '))
+        print(item)
+    newlist.append(item)
+print(newlist)
+
+
+
+ if 'bank' in x:
+        print('its finance')
+		
+		
+
+		
+		
+https://towardsdatascience.com/topic-modelling-in-python-with-nltk-and-gensim-4ef03213cd21
+
+https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/topic_modeling_Gensim.ipynb
+
+###    pyLDAvis
+
+pyLDAvis is designed to help users interpret the topics in a topic model that has been fit to a corpus of text data. 
+The package extracts information from a fitted LDA topic model to inform an interactive web-based visualization.
+
+  https://datascienceplus.com/topic-modeling-in-python-with-nltk-and-gensim/

@@ -1,0 +1,35 @@
+Installing pyspark on windows 
+=========================================================
+
+https://stackoverflow.com/questions/39498602/pycharm-error-loading-package-list
+
+
+
+
+C:\spark\spark\bin
+
+PYSPARK_PYTHON
+
+
+PYSPARK_PYTHON
+
+C:\Users\saidulu.b\AppData\Local\Continuum\anaconda2
+
+
+
+C:\Users\saidulu.b\.conda\environment\pyspark\python.exe
+
+
+
+
+*********  https://stackoverflow.com/questions/34685905/how-to-link-pycharm-with-pyspark?noredirect=1&lq=1
+
+
+1)pip install findspark
+
+
+
+counts = text_file.flatMap(lambda line: line.split(" ")) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+        print(counts)

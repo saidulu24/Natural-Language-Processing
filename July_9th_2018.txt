@@ -1,0 +1,95 @@
+
+************ https://github.com/ayat-rashad/ayat-rashad.github.io/blob/master/triples.ipynb
+
+https://nlp.stanford.edu/software/lex-parser.shtml#Download
+https://nlp.stanford.edu/software/lex-parser.shtml (4.0kb and 4096 Bytes)
+
+https://playwithml.wordpress.com/2016/06/15/extracting-relations-or-subject-predicate-object-triples/
+
+
+https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
+
+
+http://ailab.ijs.si/dunja/SiKDD2007/Papers/Rusu_Trippels.pdf
+
+
+Packages required
+This walkthrough uses the following Python packages:
+
+NLTK, a natural language toolkit for Python. A useful package for any natural language processing.
+        For Mac/Unix with pip: $ sudo pip install -U nltk.
+stop_words, a Python package containing stop words.
+        For Mac/Unix with pip: $ sudo pip install stop-words.
+gensim, a topic modeling package containing our LDA model.
+        For Mac/Unix with pip: $ sudo pip install gensim.
+
+
+Cleaning your documents
+Data cleaning is absolutely crucial for generating a useful topic model: as the saying goes, “garbage in, garbage out.” The steps below are common to most natural language processing methods:
+
+Tokenizing: converting a document to its atomic elements.
+Stopping: removing meaningless words.
+Stemming: merging words that are equivalent in meaning.
+
+
+		
+
+doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
+doc_b = "My mother spends a lot of time driving my brother around to baseball practice."
+doc_c = "Some health experts suggest that driving may cause increased tension and blood pressure."
+doc_d = "I often feel pressure to perform well at school, but my mother never seems to drive my brother to do better."
+doc_e = "Health professionals say that brocolli is good for your health."
+
+# compile sample documents into a list
+doc_set = [doc_a, doc_b, doc_c, doc_d, doc_e]
+
+
+Tokenization
+=============================
+from nltk.tokenize import RegexpTokenizer
+doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
+tokenizer = RegexpTokenizer(r'\w+')
+raw = doc_a.lower()
+tokens = tokenizer.tokenize(raw)
+print(tokens)
+
+
+
+Stop words
+=================================
+from stop_words import get_stop_words
+en_stop = get_stop_words('en')
+stopped_tokens = [i for i in tokens if not i in en_stop]
+print(stopped_tokens)
+
+
+Stemming
+=====================================
+from nltk.stem.porter import PorterStemmer
+p_stemmer = PorterStemmer()
+
+texts = [p_stemmer.stem(i) for i in stopped_tokens]
+print(texts)
+
+#print(stemmed_tokens)
+
+=================================================
+from gensim import corpora, models
+
+dictionary = corpora.Dictionary(texts)
+corpus = [dictionary.doc2bow(text) for text in texts]
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=20)
+
+print(ldamodel.print_topics(num_topics=3, num_words=3))
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word = dictionary, passes=20)
+
+
+print(ldamodel.print_topics(num_topics=2, num_words=4))
+
+
+import gensim
+from gensim import corpora, models
+
+
+
+

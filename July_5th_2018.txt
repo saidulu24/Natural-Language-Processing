@@ -1,0 +1,401 @@
+https://www.ereadingworksheets.com/free-grammar-worksheets/subjects-objects-and-predicates-with-pirates-worksheet-answers.html
+
+https://github.com/klintan/py-nltk-svo/blob/master/svo.py
+
+
+VERB_PHARSE
+===========================================================================================================================================================
+
+import nltk
+sent = "lars might need some help with his car."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<MD>|<R.*>|<VB.*>+}"
+
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+
+	
+==============================================================================================================================================================
+NOUN_PHARSE
+==============================================================================================================================================================
+
+import nltk
+import re
+
+#sent = "Grandma cooked a meal for ten people, even though there were only four of us"
+
+sent = "The glistening snow covered the field."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<PDT>|<IN>|<RB>|<PRP$>|<DT|JJ|NN.*>+}"
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "NP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Noun Phrases", k)
+
+for i in k:
+    print(i)
+	
+=============================================================================================================================================================
+
+
+Subject and Object are nouns or pronouns. Subject comes before the verb and Object comes after the verb. For example:
+
+John loves Mary. /He loves her.
+
+In the above sentences ‘John and he’ are Subjects, and ‘Mary and her’ are Objects.
+
+
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+#s = "This song is the best song in the world. I really love it."
+s = "The pirate captain sang a sea shanty on his pirate ship."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+
+
+==================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  SUB: {<NNP>|<PRP>}               # Chunk prepositions followed by NP
+  PRED: {<VB.*>|<PP>+$}         # Chunk verbs and their arguments
+  OBJ: {<DT>|<NNS>|<NN>+}                # Chunk sequences of DT, JJ, NN
+  """
+cp = nltk.RegexpParser(grammar)
+#s = "This song is the best song in the world. I really love it."
+s = "He is eating an apple"
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+==============================================================================================================================
+TRIED_SOP[NOTWOR]
+=====================================================================================================================
+
+import nltk
+sent = "Monkeys are destroying the garden."
+words = nltk.word_tokenize(sent)
+
+sub_grammar = "SUB: {<NNP>|<PRP>} "
+pred_grammar = "PRED: {<VB.*>|<PP>+$}"
+object_grammar = "OBJ: {<DT>|<NNS>|<NN>+}"
+
+parser = nltk.RegexpParser(sub_grammar)
+predi_parser = nltk.RegexpParser(pred_grammar)
+obj_parser = nltk.RegexpParser(object_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = predi_parser.parse(nltk.pos_tag(words))
+t2 = obj_parser.parse(nltk.pos_tag(words))
+sub_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "SUB"]
+pred_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "PRED"]
+obj_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "OBJ"]
+
+
+for s in sub_ss:
+    print("subject is",s)
+
+for t in pred_ss:
+    print("predicate is",t)
+	
+for u in obj_ss:
+    print("object is ",u)
+
+==============================================================================================================
+Temp[subject_predicate_object]
+=============================================================================================================
+import nltk
+sent = "He is writing a poem"
+words = nltk.word_tokenize(sent)
+
+sub_grammar = "SUB: {<NNP>|<PRP>} "
+pred_grammar = "PRED: {<VB.*>|<PP>+$}"
+object_grammar = "OBJ: {<DT>|<NNS>|<NN>+}"
+parser = nltk.RegexpParser(sub_grammar)
+predi_parser = nltk.RegexpParser(pred_grammar)
+obj_parser = nltk.RegexpParser(object_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = predi_parser.parse(nltk.pos_tag(words))
+t2 = obj_parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "SUB":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+k1 = []
+for s in t1.subtrees():
+    if s.label() == "PRED":
+        j1 = []
+        for ss in s.leaves():
+            j1.append(ss[0])
+        t1 = ','.join(map(str, j1))
+        k1.append(str(t1.replace(',',' ')))
+		
+k2 = []
+for s in t2.subtrees():
+    if s.label() == "OBJ":
+        j2 = []
+        for ss in s.leaves():
+            j2.append(ss[0])
+        t2 = ','.join(map(str, j2))
+        k2.append(str(t2.replace(',',' ')))
+		
+		
+print("Subject is ", k)
+print("Predicate is ", k1)
+print("Object is ", k2)
+
+for i in k:
+    print(i)
+
+for j in k1:
+    print(j)
+	
+for l in k2:
+    print(l)
+===============================================================================================================================
+
+import nltk
+sent = "Monkeys are destroying the garden."
+words = nltk.word_tokenize(sent)
+
+#sub_grammar = "SUB: {<NNP>|<PRP>} "
+#pred_grammar = "PRED: {<VB.*>|<PP>|<IN>+$}"
+#object_grammar = "OBJ: {<DT>|<NNS>|<NN>|<JJ|JJR|JJS>+}"
+
+sub_grammar = "NP: {<NN.*>} "
+pred_grammar = "VP: {<VB.*>}"
+object_grammar = "OBJ: {<PP>|<NP>|<JJ|JJR|JJS>+}"
+
+parser = nltk.RegexpParser(sub_grammar)
+predi_parser = nltk.RegexpParser(pred_grammar)
+obj_parser = nltk.RegexpParser(object_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = predi_parser.parse(nltk.pos_tag(words))
+t2 = obj_parser.parse(nltk.pos_tag(words))
+sub_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "NP"]
+pred_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "VP"]
+obj_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "OBJ"]
+
+
+for s in sub_ss:
+    print("subject is",s)
+
+for t in pred_ss:
+    print("predicate is",t)
+	
+for u in obj_ss:
+    print("object is ",u)
+	
+	
+	
+import nltk
+sent = "Monkeys are destroying the garden."
+words = nltk.word_tokenize(sent)
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  OB: {<VP><PP><NP><JJ|JJR|JJS>}
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+
+#sub_grammar = "SUB: {<DT|JJ|NN.*>+} "
+#pred_grammar = "PRED: {<VB.*><NP|PP|CLAUSE>+$}"
+#object_grammar = "OBJ: {<VB.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>|<JJ|JJR|JJS>}"
+
+parser = nltk.RegexpParser(grammar)
+predi_parser = nltk.RegexpParser(grammar)
+obj_parser = nltk.RegexpParser(grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = predi_parser.parse(nltk.pos_tag(words))
+t2 = obj_parser.parse(nltk.pos_tag(words))
+sub_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "NP"]
+pred_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "VP"]
+obj_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "OB"]
+
+
+for s in sub_ss:
+    print("subject is",s)
+
+for t in pred_ss:
+    print("predicate is",t)
+	
+for u in obj_ss:
+    print("object is ",u)
+	
+	
+	
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+	
+==========================================================================================================================
+
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+
+grammar = r"""
+
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  VP: {<VB.*><DT|JJ|NN.*>|<IN>|<DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN>|<DT|JJ|NN.*>|<DT|JJ|NN.*>+$} # Chunk verbs and their arguments
+  OBJ: {<VB.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>|<JJ|JJR|JJS>}   
+  
+  """
+  
+cp = nltk.RegexpParser(grammar)
+#s = "This song is the best song in the world. I really love it."
+s = "He is eating an apple"
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+	
+==============================================================	
+
+grammar = r"""
+  SUB: {<NNP>|<PRP>}               # Chunk prepositions followed by NP
+  PRED: {<VB.*>|<PP>+$}         # Chunk verbs and their arguments
+  OBJ: {<DT>|<NNS>|<NN>+}                # Chunk sequences of DT, JJ, NN
+  """
+cp = nltk.RegexpParser(grammar)
+#s = "This song is the best song in the world. I really love it."
+s = "He is eating an apple"
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+	
+===============================================================================================================================================================
+
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+sent = "Monkeys are destroying the garden."
+words = nltk.word_tokenize(sent)
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+
+
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+
+def find_subject(t):    
+    for s in t.subtrees(lambda t: t.label() == 'NP'):
+        for n in s.subtrees(lambda n: n.label().startswith('NN')):
+            return (n[0], find_attrs(n))
+            
+def find_predicate(t):    
+    v = None
+    
+    for s in t.subtrees(lambda t: t.label() == 'VP'):
+        for n in s.subtrees(lambda n: n.label().startswith('VB')):
+            v = n
+        return (v[0], find_attrs(v))
+    
+def find_object(t):    
+    for s in t.subtrees(lambda t: t.label() == 'VP'):
+        for n in s.subtrees(lambda n: n.label() in ['NP', 'PP', 'ADJP']):
+            if n.label() in ['NP', 'PP']:
+                for c in n.subtrees(lambda c: c.label().startswith('NN')):
+                    return (c[0], find_attrs(c))
+            else:
+                for c in n.subtrees(lambda c: c.label().startswith('JJ')):
+                    return (c[0], find_attrs(c))
+                
+
+def find_attrs(node):
+    attrs = []
+    p = node.parent()
+    
+    # Search siblings
+    if node.label().startswith('JJ'):
+        for s in p:
+            if s.label() == 'RB':
+                attrs.append(s[0])
+                
+    elif node.label().startswith('NN'):
+        for s in p:
+            if s.label() in ['DT','PRP$','POS','JJ','CD','ADJP','QP','NP']:
+                attrs.append(' '.join(s.flatten()))
+    
+    elif node.label().startswith('VB'):
+        for s in p:
+            if s.label() == 'ADVP':
+                attrs.append(' '.join(s.flatten()))
+                
+    # Search uncles
+    if node.label().startswith('JJ') or node.label().startswith('NN'):
+        for s in p.parent():
+            if s != p and s.label() == 'PP':
+                attrs.append(' '.join(s.flatten()))
+                
+    elif node.label().startswith('VB'):
+        for s in p.parent():
+            if s != p and s.label().startswith('VB'):
+                attrs.append(s[0])
+                
+    return attrs				
+
+print find_subject(t)
+print find_predicate(t)
+print find_object(t)
+
+===================================================================================================================================================================

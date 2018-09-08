@@ -1,0 +1,69 @@
+************ https://github.com/ayat-rashad/ayat-rashad.github.io/blob/master/triples.ipynb
+
+https://nlp.stanford.edu/software/lex-parser.shtml#Download
+https://nlp.stanford.edu/software/lex-parser.shtml (4.0kb and 4096 Bytes)
+
+https://playwithml.wordpress.com/2016/06/15/extracting-relations-or-subject-predicate-object-triples/
+
+https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
+http://ailab.ijs.si/dunja/SiKDD2007/Papers/Rusu_Trippels.pdf
+
+TOPIC MODELING : https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
+
+
+1)https://github.com/ayat-rashad/ayat-rashad.github.io/blob/master/triples.ipynb
+2)https://playwithml.wordpress.com/2016/06/15/extracting-relations-or-subject-predicate-object-triples/
+3)https://pdfs.semanticscholar.org/8bbe/29bd7ee8f960c014c2ecf9be7a0c299a69b1.pdf
+4)https://stackoverflow.com/questions/10094991/basic-tree-concept-defining-ancestors
+5)https://nlp.stanford.edu/software/lex-parser.shtml#Download
+
+
+
+sudo pip install --upgrade gensim 
+sudo pip install --upgrade requests 
+sudo pip freeze 
+#!/usr/bin/python2.7.3 
+ 
+ 
+ 1)mkdir anaconda
+ 
+ 2)wget https://repo.anaconda.com/archive/Anaconda2-5.2.0-Linux-x86_64.sh
+ 
+ 3) sudo bash Anaconda2-5.2.0-Linux-x86_64.sh
+ 
+ 
+ 
+ 
+ https://docs.anaconda.com/anaconda/install/linux 
+ 
+ ls -ltr
+ ls -lS
+ 
+ sudo find / -name murali
+ 
+ /home/murali
+/home/murali/murali
+
+/usr/lib/ambari-server
+
+https://repo.continuum.io/archive/
+========================================================================================================================
+
+WINDOWS : Installation 
+
+conda install -c anaconda gensim=0.12.4
+
+conda install -c anaconda stopwords
+
+conda install -c anaconda msgpack-python
+
+pip install stopwords
+
+pip install argparse
+
+===============================================================================================================
+
+TOPIC MODELING : https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
+
+
+

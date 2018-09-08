@@ -1,0 +1,273 @@
+https://www.quora.com/What-is-the-best-Python-code-that-extract-all-phrases-and-part-of-speech-POS-tags-of-a-sentence
+
+https://stackoverflow.com/questions/36698769/chunking-with-rule-based-grammar-in-spacy
+
+from spacy.en import English    
+parser = English()
+parsed_sent = parser(u'The little yellow dog will then walk to the Starbucks, where')
+
+def print_coarse_pos(token):
+  print(token, token.pos_)
+
+for sentence in parsed_sent.sents:
+  for token in sentence:
+    print_coarse_pos(token)
+	
+ which returns the tags and tokens 
+ The  DET
+little  ADJ
+yellow  ADJ
+dog  NOUN
+will  VERB
+then  ADV
+walk  VERB	
+	
+=========================================================================================================
+https://stackoverflow.com/questions/33289820/noun-phrases-with-spacy/33512175
+
+	
+>>> from spacy.en import English
+>>> nlp = English()
+>>> doc = nlp(u'The cat and the dog sleep in the basket near the door.')
+>>> for np in doc.noun_chunks:
+>>>     np.text
+u'The cat'
+u'the dog'
+u'the basket'
+u'the door
+
+==============================================================================================
+from spacy.en import English
+nlp = English()
+doc = nlp(u'The cat and the dog sleep in the basket near the door.')
+for np in doc.noun_chunks:
+np.text
+================================================================================================
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+grammar = "NP: {<DT>?<JJ>*<NN>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+================================================================================================
+https://stackoverflow.com/questions/25394952/using-nltk-regexpparser-to-find-subject-object-verb-combinations
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP:
+    {<.*>+}          # Chunk everything
+    }<VBD|VBZ|VBP|IN>+{      # Chink sequences of VBD and IN
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+========================================================================================================
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+grammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}" 
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+========================================================================================================
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP
+  """
+===========================================================================================================
+verb phrase
+==============
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  VP: {<VB.*><NP|PP|CLAUSE>+$}
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+=========================================================================================================
+Noun phrase
+========================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT>?<JJ>*<NN>}
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+	
+==================================================================================================================
+prepositions phrase
+=============================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  PP: {<IN><NP>} 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+
+========================================================================================================================
+CLAUSE 
+==================================================================
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  CLAUSE: {<NP><VP>} 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+=============================================================================================================================
+ALL
+==================================================
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+============================================================================================================================
+TRIED :
+=========================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(s)
+text = cp.parse(nltk.pos_tag(words))
+for j in text:
+ print(j)
+ 
+==================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  VP: {<VB.*><NP|PP|CLAUSE>+$}
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+		
+		
+========================================================================================
+
+		
+=====================================================================================================================	
+
+
+=============================================================================================
+
+
+
+
+==================================================================================================
+
+
+import nltk
+from spacy.en import English
+
+
+
+import nltk
+#from nltk.corpus import state_union
+from nltk.tokenize import PunktSentenceTokenizer
+
+
+sample_text = state_union.raw("2006-GWBush.txt")
+
+import nltk
+import os
+f = open('document.txt')
+tokenized = f.read()
+print(raw)
+
+===================================================================================================================================
+
+import nltk
+import re
+
+exampleString = '''
+Jessica is 15 years old, and Daniel is 27 years old.
+Edward is 97 years old, and his grandfather, Oscar, is 102.
+'''
+
+ages = re.findall(r'\d{1,3}',exampleString)
+names = re.findall(r'[A-Z][a-z]*',exampleString)
+
+print(ages)
+print(names)
+
+=======================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+NP:
+{<.*>+}          
+}<VBD|VBZ|VBP|IN>+{      
+"""
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+text = nltk.pos_tag(word_tokenize(t))
+print cp.parse(text)
+
+
+==============================================================================================================================================

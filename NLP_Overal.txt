@@ -1,0 +1,970 @@
+This is the code for Named-Entity-Recognition implementation using Stanford NER Tagger 
+it is able to identifying the Person,Location,Organization.
+
+ URL: https://pythonprogramming.net/named-entity-recognition-stanford-ner-tagger/
+
+stanford-ner-2018-02-27 (4096 k.b)
+
+ 
+from nltk.tag import StanfordNERTagger
+
+from nltk.tokenize import word_tokenize
+
+ 
+
+st = StanfordNERTagger('/home/sai1/examples/stanford-ner-2018-02-27/classifiers/english.all.3class.distsim.crf.ser.gz',
+
+                                                                                   '/home/sai1/examples/stanford-ner-2018-02-27/stanford-ner.jar')
+
+ 
+
+text = 'Google bought IBM for 10 dollars in France. Mike was happy about this deal.'
+
+ 
+tokenized_text = word_tokenize(text)
+
+classified_text = st.tag(tokenized_text)
+
+
+for i in classified_text:
+
+    print(i)
+
+ 
+
+This is the code for Topic modelling reading from different files.
+
+
+
+from nltk.tokenize import RegexpTokenizer
+
+from stop_words import get_stop_words
+
+from nltk.stem.porter import PorterStemmer
+
+from gensim import corpora, models
+
+import numpy as np
+
+import gensim
+
+ 
+
+tokenizer = RegexpTokenizer(r'\w+')
+
+ 
+
+# create English stop words list
+
+en_stop = get_stop_words('en')
+
+ 
+
+# Create p_stemmer of class PorterStemmer
+
+p_stemmer = PorterStemmer()
+
+   
+
+# create sample documents
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\sports.txt')
+
+sports = f.read()
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\lifestyle.txt')
+
+lifestyle = f.read()
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\finance.txt')
+
+finance = f.read()
+
+ 
+
+ 
+
+# compile sample documents into a list
+
+doc_set = [sports, lifestyle, finance]
+
+ 
+
+# list for tokenized documents in loop
+
+texts = []
+
+ 
+
+# loop through document list
+
+for i in doc_set:
+
+   
+
+    # clean and tokenize document string
+
+    raw = i.lower()
+
+    tokens = tokenizer.tokenize(raw)
+
+ 
+
+    # remove stop words from tokens
+
+    stopped_tokens = [i for i in tokens if not i in en_stop]
+
+   
+
+    # stem tokens
+
+    stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
+
+   
+
+    # add tokens to list
+
+    texts.append(stemmed_tokens)
+
+ 
+
+# turn our tokenized documents into a id <-> term dictionary
+
+#The Dictionary() function traverses texts, assigning a unique integer id to each unique token while also collecting word counts and relevant statistics
+
+dictionary = corpora.Dictionary(texts)
+
+ 
+
+print(dictionary)
+
+#To see each tokens unique integer id
+
+print(dictionary.token2id)
+
+   
+
+# convert tokenized documents into a document-term matrix and The doc2bow() function converts dictionary into a bag-of-words and corpus is a list of vectors equal to the number of documents
+
+corpus = [dictionary.doc2bow(text) for text in texts]
+
+ 
+
+# generate LDA model
+
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=20)
+
+ 
+topics = ldamodel.print_topics(num_topics=3,num_words=4)
+
+ for topic in topics:
+
+    print(topic)
+
+               
+print(ldamodel)
+
+==================================================================================================================================================================================================
+This is the code for Topic modelling I did it using text files reading like different categories Sports, finance and life style.
+
+ 
+
+Using LDA Modelling:
+
+======================================================================================================================
+
+from nltk.tokenize import RegexpTokenizer
+
+from stop_words import get_stop_words
+
+from nltk.stem.porter import PorterStemmer
+
+from gensim import corpora, models
+
+import numpy as np
+
+import gensim
+
+ 
+
+tokenizer = RegexpTokenizer(r'\w+')
+
+ 
+
+# create English stop words list
+
+en_stop = get_stop_words('en')
+
+ 
+
+# Create p_stemmer of class PorterStemmer
+
+p_stemmer = PorterStemmer()
+
+   
+
+# create sample documents
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\sports.txt')
+
+sports = f.read()
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\lifestyle.txt')
+
+lifestyle = f.read()
+
+ 
+
+f = open('C:\\Users\\saidulu.b\\Desktop\\Work status\\python\\finance.txt')
+
+finance = f.read()
+
+ 
+
+ 
+
+# compile sample documents into a list
+
+doc_set = [sports, lifestyle, finance]
+
+ 
+
+# list for tokenized documents in loop
+
+texts = []
+
+ 
+
+# loop through document list
+
+for i in doc_set:
+
+   
+
+    # clean and tokenize document string
+
+    raw = i.lower()
+
+    tokens = tokenizer.tokenize(raw)
+
+ 
+
+    # remove stop words from tokens
+
+    stopped_tokens = [i for i in tokens if not i in en_stop]
+
+   
+
+    # stem tokens
+
+    stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
+
+   
+
+    # add tokens to list
+
+    texts.append(stemmed_tokens)
+
+ 
+
+# turn our tokenized documents into a id <-> term dictionary
+
+#The Dictionary() function traverses texts, assigning a unique integer id to each unique token while also collecting word counts and relevant statistics
+
+dictionary = corpora.Dictionary(texts)
+
+ 
+
+print(dictionary)
+
+ 
+
+#To see each token’s unique integer id
+
+print(dictionary.token2id)
+
+   
+
+# convert tokenized documents into a document-term matrix and The doc2bow() function converts dictionary into a bag-of-words and corpus is a list of vectors equal to the number of documents
+
+corpus = [dictionary.doc2bow(text) for text in texts]
+
+ 
+
+# generate LDA model
+
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=20)
+
+ 
+topics = ldamodel.print_topics(num_topics=3,num_words=4)
+
+ 
+
+for topic in topics:
+
+    print(topic)
+
+               
+
+print(ldamodel)
+
+================================================================================================================================================================================================================
+Topic MODELING 
+-------------------------------------------------
+Using LDA modelling :
+
+#! python2.7
+
+from nltk.tokenize import RegexpTokenizer
+
+from stop_words import get_stop_words
+
+from nltk.stem.porter import PorterStemmer
+
+from gensim import corpora, models
+
+import gensim
+
+import sys
+
+sys.stdout.write("hello from Python %s\n" % (sys.version,))
+
+ 
+
+tokenizer = RegexpTokenizer(r'\w+')
+
+ 
+
+# create English stop words list
+
+en_stop = get_stop_words('en')
+
+ 
+
+# Create p_stemmer of class PorterStemmer
+
+p_stemmer = PorterStemmer()
+
+   
+
+# create sample documents
+
+doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
+
+doc_b = "My mother spends a lot of time driving my brother around to baseball practice."
+
+doc_c = "Some health experts suggest that driving may cause increased tension and blood pressure."
+
+doc_d = "I often feel pressure to perform well at school, but my mother never seems to drive my brother to do better."
+
+doc_e = "Health professionals say that brocolli is good for your health."
+
+ 
+
+# compile sample documents into a list
+
+doc_set = [doc_a, doc_b, doc_c, doc_d, doc_e]
+
+ 
+
+# list for tokenized documents in loop
+
+texts = []
+
+ 
+
+# loop through document list
+
+for i in doc_set:
+
+   
+
+    # clean and tokenize document string
+
+    raw = i.lower()
+
+    tokens = tokenizer.tokenize(raw)
+
+ 
+
+    # remove stop words from tokens
+
+    stopped_tokens = [i for i in tokens if not i in en_stop]
+
+   
+
+    # stem tokens
+
+    stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
+
+   
+
+    # add tokens to list
+
+    texts.append(stemmed_tokens)
+
+ 
+
+# turn our tokenized documents into a id <-> term dictionary
+
+dictionary = corpora.Dictionary(texts)
+
+   
+
+# convert tokenized documents into a document-term matrix
+
+corpus = [dictionary.doc2bow(text) for text in texts]
+
+ 
+
+# generate LDA model
+
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word = dictionary, passes=20)
+
+ 
+
+print(ldamodel.print_topics(num_topics=2, num_words=4))
+
+ 
+
+print(ldamodel)
+
+ 
+
+================================================================================================================================================================================
+These are  the codes for extracting Subject-Predicate-Object from a given sentence using Stanford Parser and using NLTK Grammar,
+I am attaching published papers too which is having the content of SPO extraction algorithm (how it internally works). 
+
+Stanford Parser size : 4.0Kb and 4096 bytes
+
+Stanford Parser Version :  stanfordparser_3.9
+
+URL : https://playwithml.wordpress.com/2016/06/15/extracting-relations-or-subject-predicate-object-triples/
+
+Github : https://github.com/ayat-rashad/ayat-rashad.github.io/blob/master/triples.ipynb
+
+CODE:
+
+import os
+
+os.environ['STANFORD_PARSER'] = 'stanford-parser'
+
+os.environ['STANFORD_MODELS'] = 'stanford-parser'
+ 
+
+from nltk.parse.stanford import StanfordParser
+
+from nltk.tree import ParentedTree, Tree
+
+ 
+
+parser = StanfordParser()
+
+ 
+
+# Parse the example sentence
+
+sent = 'A rare black squirrel has become a regular visitor to a suburban garden'
+
+t = list(parser.raw_parse(sent))[0]
+
+t = ParentedTree.convert(t)
+
+ 
+
+# Breadth First Search the tree and take the first noun in the NP subtree.
+
+def find_subject(t):
+
+  for s in t.subtrees(lambda t: t.label() == 'NP'):
+
+    for n in s.subtrees(lambda n: n.label().startswith('NN')):
+
+      return (n[0], find_attrs(n))
+
+ 
+
+# Depth First Search the tree and take the last verb in VP subtree.
+
+def find_predicate(t):
+
+  v = None
+
+ 
+
+  for s in t.subtrees(lambda t: t.label() == 'VP'):
+
+    for n in s.subtrees(lambda n: n.label().startswith('VB')):
+
+      v = n
+
+  return (v[0], find_attrs(v))
+
+ 
+
+# Breadth First Search the siblings of VP subtree
+
+# and take the first noun or adjective
+
+def find_object(t):
+
+  for s in t.subtrees(lambda t: t.label() == 'VP'):
+
+    for n in s.subtrees(lambda n: n.label() in ['NP', 'PP', 'ADJP']):
+
+      if n.label() in ['NP', 'PP']:
+
+        for c in n.subtrees(lambda c: c.label().startswith('NN')):
+
+          return (c[0], find_attrs(c))
+
+      else:
+
+        for c in n.subtrees(lambda c: c.label().startswith('JJ')):
+
+          return (c[0], find_attrs(c))
+
+ 
+
+def find_attrs(node):
+
+  attrs = []
+
+  p = node.parent()
+
+ 
+
+  # Search siblings of adjective for adverbs
+
+  if node.label().startswith('JJ'):
+
+    for s in p:
+
+      if s.label() == 'RB':
+
+        attrs.append(s[0])
+
+ 
+
+  elif node.label().startswith('NN'):
+
+    for s in p:
+
+      if s.label() in ['DT','PRP$','POS','JJ','CD','ADJP','QP','NP']:
+
+        attrs.append(s[0])
+
+ 
+
+  # Search siblings of verbs for adverb phrase
+
+  elif node.label().startswith('VB'):
+
+    for s in p:
+
+      if s.label() == 'ADVP':
+
+        attrs.append(' '.join(s.flatten()))
+
+ 
+
+  # Search uncles
+
+  # if the node is noun or adjective search for prepositional phrase
+
+  if node.label().startswith('JJ') or node.label().startswith('NN'):
+
+      for s in p.parent():
+
+        if s != p and s.label() == 'PP':
+
+          attrs.append(' '.join(s.flatten()))
+
+ 
+
+  elif node.label().startswith('VB'):
+
+    for s in p.parent():
+
+      if s != p and s.label().startswith('VB'):
+
+        attrs.append(' '.join(s.flatten()))
+
+ 
+
+  return attrs
+
+ 
+
+  print find_subject(t)
+
+  print find_predicate(t)
+
+  print find_object(t)
+
+ 
+
+ 
+
+I tried with below following code using NLTK Grammar to find Subject-Predicate-Object ,Though it’s not giving exact accuracy but its giving good accuracy.
+
+ 
+
+==========================================================================================================================================
+
+ 
+
+import nltk
+
+sent = "Monkeys are destroying the garden."
+
+#sent ="Some climbed ropes and looked through telescopes, while others swung on ropes and nets."
+
+#sent ="The pirates battered the door with a large log"
+
+#sent ="The crew of the merchant ship barricaded themselves in the captain's quarters."
+
+words = nltk.word_tokenize(sent)
+
+ 
+
+sub_grammar = "SUB: {<NNP>|<NNS>|<PRP>} "
+
+pred_grammar = "PRED: {<VB.*>|<PP>+$}"
+
+object_grammar = "OBJ: {<PRED>|<DT>|<NN>|<JJ>|<JJR>|<JJS>+}"
+
+ 
+
+parser = nltk.RegexpParser(sub_grammar)
+
+predi_parser = nltk.RegexpParser(pred_grammar)
+
+obj_parser = nltk.RegexpParser(object_grammar)
+
+ 
+
+t = parser.parse(nltk.pos_tag(words))
+
+t1 = predi_parser.parse(nltk.pos_tag(words))
+
+t2 = obj_parser.parse(nltk.pos_tag(words))
+
+sub_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "SUB"]
+
+pred_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "PRED"]
+
+obj_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "OBJ"]
+
+for s in sub_ss:
+
+    print("subject is",s)
+
+ 
+
+for t in pred_ss:
+
+    print("predicate is",t)
+
+ 
+
+for u in obj_ss:
+
+    print("object is ",u)  
+
+===================================================================================================================================================================================================
+ I have tested the verb phrase code with below following websites and its giving good accuracy 
+ The below code and urls are related verb phrase please find it.
+
+ 
+
+URL’S
+
+========
+
+https://www.tutorvista.com/english/verb-phrase-examples
+https://rmitenglishworldwide.com/blog/sentence-structure-focus-verbs
+https://www.k12reader.com/term/verb-phrase/
+http://examples.yourdictionary.com/verb-phrase-examples.html
+ 
+
+ 
+
+import nltk
+
+sent = "lars might need some help with his car."
+
+words = nltk.word_tokenize(sent)
+
+nltk.pos_tag(words)
+
+ 
+
+VerbGrammar = "VP: {<MD>|<R.*>|<VB.*>+}"
+
+ 
+
+parser = nltk.RegexpParser(VerbGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+ 
+k = []
+
+for s in t.subtrees():
+
+    if s.label() == "VP":
+
+        j = []
+
+        for ss in s.leaves():
+
+            j.append(ss[0])
+
+        t = ','.join(map(str, j))
+
+        k.append(str(t.replace(',',' ')))
+
+ 
+
+print("Verb Phrases", k)
+
+ 
+
+for i in k:
+
+    print(i)
+
+======================================================================================
+VERB_PHARSE
+
+https://www.k12reader.com/term/verb-phrase/
+
+http://examples.yourdictionary.com/verb-phrase-examples.html
+
+ 
+
+import nltk
+
+ 
+
+#sent = "lars might need some help with his car."
+
+ 
+
+#sent ="We have gotten a lot of rainfall lately."
+
+ 
+
+#sent ="You can call me when you need a ride"
+
+ 
+
+#sent = "Mom and Dad are going to France in the springtime."
+
+ 
+
+#sent = "The Meyers have been taking their dog with them on trips"
+
+ 
+
+#sent = "Despite our reservations, we did go out in the snowstorm."
+
+ 
+sent = "Ted might eat the cake."
+
+ 
+words = nltk.word_tokenize(sent)
+
+nltk.pos_tag(words)
+
+ 
+VerbGrammar = "VP: {<MD>|<VB.*>+}"
+
+ parser = nltk.RegexpParser(VerbGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+ 
+
+k = []
+
+for s in t.subtrees():
+
+    if s.label() == "VP":
+
+        j = []
+
+        for ss in s.leaves():
+
+            j.append(ss[0])
+
+        t = ','.join(map(str, j))
+
+        k.append(str(t.replace(',',' ')))
+
+ 
+
+print("Verb Phrases", k)
+
+ 
+
+for i in k:
+
+    print(i)
+
+========================================================================================================================================================================================================================================
+
+I modified the verb grammar and I tested one URL.
+
+ 
+
+============================================================================================
+
+https://www.k12reader.com/term/verb-phrase/
+
+ 
+import nltk
+
+ 
+
+#sent = "lars might need some help with his car."
+
+ 
+
+#sent ="We have gotten a lot of rainfall lately."
+
+ 
+
+#sent ="You can call me when you need a ride"
+
+ 
+
+#sent = "Mom and Dad are going to France in the springtime."
+
+ 
+
+#sent = "The Meyers have been taking their dog with them on trips"
+
+ 
+
+sent = "Despite our reservations, we did go out in the snowstorm."
+
+words = nltk.word_tokenize(sent)
+
+nltk.pos_tag(words)
+
+ 
+
+
+VerbGrammar = "VP: {<MD>|<VB.*>}"
+
+ 
+
+parser = nltk.RegexpParser(VerbGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+ 
+
+k = []
+
+for s in t.subtrees():
+
+    if s.label() == "VP":
+
+        j = []
+
+        for ss in s.leaves():
+
+            j.append(ss[0])
+
+        t = ','.join(map(str, j))
+
+        k.append(str(t.replace(',',' ')))
+
+ 
+
+print("Verb Phrases", k)
+
+ 
+
+for i in k:
+
+    print(i)
+
+ 
+
+==================================================================================================
+Code for extracting Noun phrases and Verb phrases from a given sentence.
+
+==============================================================================================================================================
+
+NOUN PHARSE
+
+==========================================================================================================================
+
+import nltk
+
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+ 
+
+words = nltk.word_tokenize(sent)
+
+nltk.pos_tag(words)
+
+nounGrammar = "NP: {<DT|JJ|NN.*>+} "
+
+parser = nltk.RegexpParser(nounGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+for s in noun_ss:
+
+        print("Noun Phrases",s)
+
+
+========================================================================================================================================================
+
+VERB PHARSE
+
+========================================================================================================================================================
+
+import nltk
+
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+ 
+
+words = nltk.word_tokenize(sent)
+
+nltk.pos_tag(words)
+
+ 
+
+VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+
+parser = nltk.RegexpParser(VerbGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+verb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in verb_ss:
+
+        print("Verb Phrases",s)
+
+=========================================================================================================================================================================================

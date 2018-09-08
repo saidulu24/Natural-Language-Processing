@@ -1,0 +1,35 @@
+This DT article NN
+a DT review NN
+the DT literature NN
+clinical JJ correlates NNS
+awareness NN
+dementia NN
+inconsistencies NNS
+regard NN
+an DT associationbetween JJ depression NN
+levels NNS
+awareness NN
+Dysthymia NNP
+major JJ depression NN
+levels NNS
+awareness NN
+Anxiety NNP
+levels NNS
+awareness NN
+Apathy NNP
+psychosis NN
+present JJ
+patients NNS
+awareness NN
+share NN common JJ neuropathological JJ substrates NNS withawareness NN
+Furthermore NNP
+difficulties NNS
+daily JJ life NN functioning NN
+caregiver NN burden NN
+deterioration NN
+global JJ dementia NN severity NN
+Factors NNS
+influence NN
+the DT inconclusive JJ data NNS
+future JJ directions NNS
+research NN

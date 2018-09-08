@@ -1,0 +1,240 @@
+https://performancemanager4.successfactors.com/sf/goals?bplte_company=HCL&_s.crb=ymVYTNx6rH%2fNPo%2b0kUYGag0XkqE%3d
+
+https://origin-payment.redbus.in/PGResponse/AmazonPayResponse?amazonOrderId=P04-2704557-7797864&customInformation=354fda2c6fa0f0055722993402030100&description=Txn%20Success&orderTotalAmount=1276.45&orderTotalCurrencyCode=INR&reasonCode=001&sellerOrderId=1012072270&signature=VHtIo0vFAGKDQ9eUHyn%2BsBgO%2BG4yO%2Fc%2FxmT2rWpzp8A%3D&status=SUCCESS&transactionDate=1530108800454
+======================================================================================================================================================================
+ALL THE GRAMMER 
+=====================================================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+#s = "This song is the best song in the world. I really love it."
+s = "The man saw the dog with the telescope."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+	
+=============================================================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+text = nltk.pos_tag(word_tokenize(t))
+print(text)
+for i in text:
+        print("Noun Phrases",i)
+		
+
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+	
+	
+	
+===============================================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(s)
+for t in sent_tokenize(words):
+text = parser.parse(nltk.pos_tag(t))
+for i in text:
+ print(i)
+ 
+===============================================================================================================================================================
+	
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(s)
+text = cp.parse(nltk.pos_tag(words))
+for j in text:
+ print(j)
+
+======================================================================================================================================
+vb phase loop
+=======================================================================================================================
+ 
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  VP: {<VB.*><NP|PP|CLAUSE>+$}
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for k in text:
+	print(k)
+	
+=========================================================================================================================================
+All COMB IN LOOP
+=================================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for x in text:
+	print(x)
+ 
+ 
+============================================================================================================================================
+
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+===============================================================================================================================================
+NOUN PHARSES
+============================================================================================================================================
+
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+grammar = "NP: {<DT>?<JJ>*<NN>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+		
+=============================================================================================================================
+PREPOSTIONS PHARSES
+===============================================================================================================
+
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+prepositions_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+for s in prepositions_ss:
+        print("prepositions are",s)
+================================================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "CLAUSE"]
+
+prepositions_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "CLAUSE"]
+
+for s in prepositions_ss:
+        print("prepositions are",s)
+===============================================================================================================================
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for z in text:
+	print(z)
+
+====================================================================================================================================
+
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+grammar = "NP: {<DT>?<JJ>*<NN>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+
+=======================================================================================================================================

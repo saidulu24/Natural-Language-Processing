@@ -1,0 +1,138 @@
+https://opensource.com/business/15/7/five-open-source-nlp-tools
+
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "Alice chased the rabbit."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)
+
+comb all :
+===================================================================================	
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for x in text:
+	print(x)
+=================================================================
+verb pharse :
+================================================================
+import nltk
+sent = "The man saw the dog with the telescope."
+words = nltk.word_tokenize(sent)
+grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("verb Phrases",s)
+		
+===============================================================================
+verb pharse 2222222222222:
+================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("verb Phrases",s)
+		
+=============================================================
+import re
+
+line = "(This', 'DT')('song', 'NN')('is', 'VBZ')('the', 'DT')('best', 'JJS')('song', 'NN')('in', 'IN')('the', 'DT')('love', 'VB')('it', 'PRP')"
+
+matchObj = re.match(line, re[VBZ]|[VB])
+
+if matchObj:
+   print "matchObj.group() : ", matchObj.group()
+   print "matchObj.group(1) : ", matchObj.group(1)
+   print "matchObj.group(2) : ", matchObj.group(2)
+else:
+   print "No match!!"
+   
+   
+
+import re
+s = '(This', 'DT')('song', 'NN')('is', 'VBZ')('the', 'DT')('best', 'JJS')('song', 'NN')('in', 'IN')('the', 'DT')('love', 'VB')('it', 'PRP')'
+ss = re.findall(r"^\VB", s)
+print ss
+
+
+import nltk
+list1=[]
+filepath="ouput.txt"
+with open(filepath) as fp:  
+   for line in fp:
+       list1.extend(line.strip().split(', '))
+	   
+	   
+import nltk	   
+import re
+file = open('ouput.txt', 'r')
+for line in file.readlines():
+if re.search('^VBZ$', line, re.I):
+print line
+	   
+
+	   
+	   
+	   
+import re
+
+programming = ["Python", "Perl", "PHP", "C++"]
+pat = "^B|^P|i$|H$"
+for lang in programming:
+    
+if re.search(pat,lang,re.IGNORECASE):
+print lang , "FOUND"
+else:
+print lang, "NOT FOUND"
+
+
+
+import re
+
+programming = ["Python", "Perl", "PHP", "C++"]
+pat = "^P"
+for lang in programming:
+    
+if re.search(pat,lang):
+print lang , "FOUND"
+
+
+
+import re
+text = "Python for beginner is a very cool website"
+pattern = re.sub("cool", "good", text)
+print pattern

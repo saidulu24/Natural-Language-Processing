@@ -1,0 +1,92 @@
+June 6th 
+
+*********    chunking (https://www.nltk.org/book/ch07.html)
+https://pythonprogramming.net/chunking-nltk-tutorial/
+https://nlpforhackers.io/text-chunking/
+
+
+http://www.nltk.org/book/ ==> nltk book/
+
+https://stackoverflow.com/questions/32835291/how-to-find-the-shortest-dependency-path-between-two-words-in-python
+
+https://spacy.io/
+
+https://spacy.io/usage/examples
+
+https://stackoverflow.com/questions/39763091/how-to-extract-subjects-in-a-sentence-and-their-respective-dependent-phrases
+
+https://github.com/klintan/py-nltk-svo/blob/master/svo.py
+
+https://stackoverflow.com/questions/49371180/how-to-get-a-parse-nlp-tree-object-from-bracketed-parse-string-with-nltk-or-spac?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+spacy,practnlptools, stanford
+
+
+import nltk
+from nltk import Tree
+parse = Tree.fromstring('(ROOT (S (NP (PRP You)) (VP (MD could) (VP (VB say) (SBAR (IN that) (S (NP (PRP they)) (ADVP (RB regularly)) (VP (VB catch) (NP (NP (DT a) (NN shower)) (, ,) (SBAR (WHNP (WDT which)) (S (VP (VBZ adds) (PP (TO to) (NP (NP (PRP$ their) (NN exhilaration)) (CC and) (NP (FW joie) (FW de) (FW vivre))))))))))))) (. .)))')
+parse
+parse.pretty_print()
+
+
+
+https://stackoverflow.com/questions/49371180/how-to-get-a-parse-nlp-tree-object-from-bracketed-parse-string-with-nltk-or-spac?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+vi spacy.py
+==============================================================================
+import spacy
+import string
+
+nlp = spacy.load('en')
+
+text = 'You could say that they regularly catch a shower , which adds to their exhilaration and joie de vivre.'
+
+for token in nlp(text):
+    print(token.dep_, end ='\t')
+    print(token.idx, end ='\t')
+    print(token.text, end ='\t')
+    print(token.tag_, end ='\t')
+    print(token.head.text, end ='\t')
+    print(token.head.tag_, end ='\t')
+    print(token.head.idx, end ='\t')
+    print(' '.join([w.text for w in token.subtree]), end ='\t')
+    print(' '.join([w.text for w in token.children]))
+
+=========================================================================================================================
+Reading Through FILE
+==========================================================================================================================
+import nltk
+import os
+f = open('document.txt')
+raw = f.read()
+print(raw)
+'Time flies like an arrow.\nFruit flies like a banana.\n'
+=========================================================================================================================
+import nltk
+s = '(ROOT (S (NP (NNP Europe)) (VP (VBZ is) (PP (IN in) (NP (DT the) (JJ same) (NNS trends)))) (. .)))'
+tree = nltk.tree.Tree.fromstring(s)
+def traverse_tree(tree):
+    # print("tree:", tree)
+    for subtree in tree:
+        if type(subtree) == nltk.tree.Tree:
+            traverse_tree(subtree)
+traverse_tree(tree)
+
+====================================================================================================================
+
+from nltk import tokenize
+from nltk import tag
+from nltk import chunk
+
+
+para = "Hello. My name is Jacob. Today you'll be learning NLTK."
+sent = tokenize.sent_tokenize(para)
+tagged_sent = tag.pos_tag(sent)
+tree = chunk.ne_chunk(tagged_sent)
+print(tree)
+print(tree.draw)
+
+========================================================================================================================
+
+

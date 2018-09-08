@@ -1,0 +1,328 @@
+https://www.quora.com/What-is-the-best-Python-code-that-extract-all-phrases-and-part-of-speech-POS-tags-of-a-sentence
+ALL :
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "This song is the best song in the world. I really love it."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    for x in text:
+	print(x)
+	
+=====================================================================================================
+NOUN PHARSES
+=========================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "NP: {<NN|NNS|NNP|NNPS>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+for s in noun_ss:
+        print("Noun Phrases are",s)
+
+
+===============================================================================================
+VERB_pharse
+================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+
+verb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in verb_ss:
+        print("verb Phrases are",s)
+=============================================================================================================
+ADVERB PHARSES
+=========================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "ADVP: {<RB|RBR|RBS>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "ADVP"]
+
+
+adverb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "ADVP"]
+
+for s in adverb_ss:
+        print("Adverb Phrases are",s)
+======================================================================================================
+PREPOSITIONS PHARSES
+=========================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "PP: {<IN>|<NP>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+
+prepo_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "PP"]
+
+for s in prepo_ss:
+        print("prepositions Phrases are",s)
+==================================================================================================================
+ADJECTIVE PHARSES
+=========================================================================================================
+import nltk
+sent = "This song is the best song in the world. I really love it."
+words = nltk.word_tokenize(sent)
+grammar = "ADJP: {<JJ>|<JJR>|<JJS>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "ADJP"]
+
+
+adject_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "ADJP"]
+
+for s in adject_ss:
+        print("Adjective Phrases are",s)
+==================================================================================================================
+WH PHARSES
+=========================================================================================================
+import nltk
+sent = "what song is the best song in the world. Which i really love it where and when will it will  ."
+words = nltk.word_tokenize(sent)
+grammar = "WH: {<WDT>|<WP>|<WP$>|<WRB>}"
+parser = nltk.RegexpParser(grammar)
+t = parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "WH"]
+
+
+wh_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "WH"]
+
+for s in wh_ss:
+        print("Wh Phrases are",s)
+		
+==================================================================================================================
+FINAL CODE USING ALL GRAMMERS
+===========================================================================================================
+
+import nltk
+sent = "This song is the best song in the world. I really love it when it will play."
+words = nltk.word_tokenize(sent)
+
+grammar = "NP: {<NN|NNS|NNP|NNPS>}"
+verb_grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+adverb_grammar = "ADVP: {<RB|RBR|RBS>}"
+pronoun_grammar = "PP: {<IN>|<NP>}"
+adject_grammar = "ADJP: {<JJ>|<JJR>|<JJS>}"
+wh_grammar = "WH: {<WDT>|<WP>|<WP$>|<WRB>}"
+
+parser = nltk.RegexpParser(grammar)
+verb_parser = nltk.RegexpParser(verb_grammar)
+adverb_parser = nltk.RegexpParser(adverb_grammar)
+pronoun_parser = nltk.RegexpParser(pronoun_grammar)
+adject_parser = nltk.RegexpParser(adject_grammar)
+wh_parser = nltk.RegexpParser(wh_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = verb_parser.parse(nltk.pos_tag(words))
+t2 = adverb_parser.parse(nltk.pos_tag(words))
+t3 = pronoun_parser.parse(nltk.pos_tag(words))
+t4 = adject_parser.parse(nltk.pos_tag(words))
+t5 = wh_parser.parse(nltk.pos_tag(words))
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "NP"]
+verb_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "VP"]
+adverb_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "ADVP"]
+pron_ss = [str(v.leaves()) for v in t3.subtrees() if v.label() == "PP"]
+adject_ss = [str(w.leaves()) for w in t4.subtrees() if w.label() == "ADJP"]
+wh_ss =   [str(x.leaves()) for x in t5.subtrees() if x.label() == "WH"]
+
+for s in noun_ss:
+    print("noun phrases are",s)
+
+for t in verb_ss:
+    print("verb phrases are",t)
+	
+for u in adverb_ss:
+    print("adverb phrases are",u)
+
+for v in pron_ss:
+    print("pronoun phrases are",v)
+
+for w in adject_ss:
+    print("adjective phrases are",w)
+	
+for x in wh_ss:
+    print("wh phrases are",x)
+
+
+================================================================================================================
+
+=======================================================================================================
+grammar = "NP: {<NN|NNS|NNP|NNPS>}"
+
+grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+
+grammar = "ADVP: {<RB|RBR|RBS>}"
+
+grammar = "PP: {<IN>|<NP>}"
+
+grammar = "ADJP: {<JJ>|<JJR>|<JJS>}"
+
+grammar = "WH: {<WDT>|<WP>|<WP$>|<WRB>}"
+
+==================================================================================================
+
+import nltk
+sent = "The boy kicked the ball."
+words = nltk.word_tokenize(sent)
+grammar = "NP: {<NN|NNS|NNP|NNPS>}"
+verb_grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+parser = nltk.RegexpParser(grammar)
+verb_parser = nltk.RegexpParser(verb_grammar)
+t = parser.parse(nltk.pos_tag(words))
+t1 = verb_parser.parse(nltk.pos_tag(words))
+[str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+[str(s.leaves()) for s in t1.subtrees() if s.label() == "VP"]
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+verb_ss = [str(s.leaves()) for s in t1.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("Noun Phrases are",s)
+for s in verb_ss:
+        print("Verb Phrases are",s)
+
+======================================================================================================
+
+import nltk
+sent = "The dog chased after the cat."
+#sent = "This song is the best song in the world. I really love it when it will play."
+words = nltk.word_tokenize(sent)
+
+grammar = "NP: {<DT><NN|NNS|NNP|NNPS>}"
+verb_grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+adverb_grammar = "ADVP: {<RB|RBR|RBS>}"
+pronoun_grammar = "PP: {<IN>|<NP>}"
+adject_grammar = "ADJP: {<JJ>|<JJR>|<JJS>}"
+wh_grammar = "WH: {<WDT>|<WP>|<WP$>|<WRB>}"
+
+parser = nltk.RegexpParser(grammar)
+verb_parser = nltk.RegexpParser(verb_grammar)
+adverb_parser = nltk.RegexpParser(adverb_grammar)
+pronoun_parser = nltk.RegexpParser(pronoun_grammar)
+adject_parser = nltk.RegexpParser(adject_grammar)
+wh_parser = nltk.RegexpParser(wh_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = verb_parser.parse(nltk.pos_tag(words))
+t2 = adverb_parser.parse(nltk.pos_tag(words))
+t3 = pronoun_parser.parse(nltk.pos_tag(words))
+t4 = adject_parser.parse(nltk.pos_tag(words))
+t5 = wh_parser.parse(nltk.pos_tag(words))
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "NP"]
+verb_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "VP"]
+adverb_ss =[str(u.leaves()) for u in t2.subtrees() if u.label() == "ADVP"]
+pron_ss = [str(v.leaves()) for v in t3.subtrees() if v.label() == "PP"]
+adject_ss =[str(w.leaves()) for w in t4.subtrees() if w.label() == "ADJP"]
+wh_ss =   [str(x.leaves()) for x in t5.subtrees() if x.label() == "WH"]
+
+for s in noun_ss:
+  print("noun phrases are",s)
+
+for t in verb_ss:
+    print("verb phrases are",t)
+	
+
+print("pronoun phrases are",pron_ss)
+print("adjective phrases are",adject_ss)
+print("wh phrases are",wh_ss)
+
+==================================================================================================================================
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+#for s in verb_ss:
+#       print("Verb Phrases",s)
+
+
+==================================================================================================================================
+
+import nltk
+
+sent = "The dog chased after the cat."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT><NN|NNS|NNP|NNPS>}"
+
+parser = nltk.RegexpParser(nounGrammar)
+
+t = parser.parse(nltk.pos_tag(words))
+
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+
+====================================================================================================================================
+
+
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+nounGrammar = "NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+               PP: {<IN><NP>}               # Chunk prepositions followed by NP
+               VP: {<VB.*><NP|PP|CLAUSE>+$} #   Chunk verbs and their arguments
+               CLAUSE: {<NP><VP>}           # Chunk NP, VP"
+  
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+#for s in verb_ss:
+#       print("Verb Phrases",s)
+
+
+
+=============================================================================

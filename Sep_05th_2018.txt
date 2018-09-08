@@ -1,0 +1,56 @@
+C:\spark-bench-master\bin\spark-bench.sh  C:\spark-bench-master\examples\minimal-example.conf
+
+  C:\spark-bench-master\conf\minimal-example.conf
+  
+  
+  
+spark-submit --class com.github.ehiggs.spark.terasort.TeraGen path\to\spark-terasort\target\spark-terasort-1.0-SNAPSHOT-jar-with-dependencies.jar 1g file:\\$HOME\data\terasort_in 
+
+
+======================================================================================================================================================================================
+https://github.com/zznate/cassandra-stress
+
+
+[cassandra-stress]
+usage: operation [options]
+ -b,--batch-size <arg>           The number of rows in the batch_mutate
+                                 call
+ -c,--columns <arg>              The number of columsn to create per key
+ -C,--clients <arg>              The number of pooled clients to use
+ -D,--discovery-delay <arg>      The amount of time to wait between runs
+                                 of Auto host discovery. Providing a value
+                                 enables this service
+ -h,--help                       Print this help message and exit
+ -k,--start-key <arg>            Start on a specific key
+ -L,--consistency-levels <arg>   Defaults to QUORUM for R+W, specified in
+                                 the form of [read]:[write] eg. '-L
+                                 ONE:ONE'
+ -m,--unframed                   Disable use of TFramedTransport
+ -M,--max-wait <arg>             The Maximum time to wait on aquiring a
+                                 connection from the pool
+                                 (maxWaitTimeWhenExhausted). Default is
+                                 forever.
+ -n,--num-keys <arg>             The number of keys to create
+ -o,--operation <arg>            The type of operation: insert or select
+ -R,--retry-delay <arg>          The amount of time to wait between runs
+                                 of Downed host retry delay execution. 30
+                                 seconds by default.
+ -S,--skip-retry-delay           Disable downed host retry service
+                                 execution.
+ -t,--threads <arg>              The number of client threads we will
+                                 create
+ -T,--thrift-timeout <arg>       The ThriftSocketTimeout value.
+ -w,--colwidth <arg>             The widht of the column in bytes. Default
+                                 is 16
+								 
+								 
+Go to :
+C:\cassandra-stress-master\target\appassembler\bin
+
+
+run :
+C:\cassandra-stress-master\target\appassembler\bin\stress -o insert -b 50 -n 12000 localhost:9160
+
+C:\cassandra-stress-master\target\appassembler\bin\stress -o insert -b 100 -c 100 -t 100 localhost:9160
+
+

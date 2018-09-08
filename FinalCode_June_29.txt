@@ -1,0 +1,52 @@
+import nltk
+sent = "This song is the best song in the world. I really love it when it will play."
+words = nltk.word_tokenize(sent)
+
+grammar = "NP: {<NN|NNS|NNP|NNPS>}"
+verb_grammar = "VP: {<VB|VBD|VBG|VBN|VBP|VBZ>}"
+adverb_grammar = "ADVP: {<RB|RBR|RBS>}"
+pronoun_grammar = "PP: {<IN>|<NP>}"
+adject_grammar = "ADJP: {<JJ>|<JJR>|<JJS>}"
+wh_grammar = "WH: {<WDT>|<WP>|<WP$>|<WRB>}"
+
+parser = nltk.RegexpParser(grammar)
+verb_parser = nltk.RegexpParser(verb_grammar)
+adverb_parser = nltk.RegexpParser(adverb_grammar)
+pronoun_parser = nltk.RegexpParser(pronoun_grammar)
+adject_parser = nltk.RegexpParser(adject_grammar)
+wh_parser = nltk.RegexpParser(wh_grammar)
+
+t = parser.parse(nltk.pos_tag(words))
+t1 = verb_parser.parse(nltk.pos_tag(words))
+t2 = adverb_parser.parse(nltk.pos_tag(words))
+t3 = pronoun_parser.parse(nltk.pos_tag(words))
+t4 = adject_parser.parse(nltk.pos_tag(words))
+t5 = wh_parser.parse(nltk.pos_tag(words))
+
+
+noun_ss = [str(s.leaves()) for s in t.subtrees()  if s.label() == "NP"]
+verb_ss = [str(t.leaves()) for t in t1.subtrees() if t.label() == "VP"]
+adverb_ss = [str(u.leaves()) for u in t2.subtrees() if u.label() == "ADVP"]
+pron_ss = [str(v.leaves()) for v in t3.subtrees() if v.label() == "PP"]
+adject_ss = [str(w.leaves()) for w in t4.subtrees() if w.label() == "ADJP"]
+wh_ss =   [str(x.leaves()) for x in t5.subtrees() if x.label() == "WH"]
+
+for s in noun_ss:
+    print("noun phrases are",s)
+
+for t in verb_ss:
+    print("verb phrases are",t)
+	
+for u in adverb_ss:
+    print("adverb phrases are",u)
+
+for v in pron_ss:
+    print("pronoun phrases are",v)
+
+for w in adject_ss:
+    print("adjective phrases are",w)
+	
+for x in wh_ss:
+    print("wh phrases are",x)
+	
+	

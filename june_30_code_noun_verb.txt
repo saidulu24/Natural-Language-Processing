@@ -1,0 +1,569 @@
+NOUN PHARSE
+==========================================================================================================================
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+} "
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+for s in noun_ss:
+        print("Noun Phrases",s)
+
+
+
+========================================================================================================================================================
+VERB PHARSE
+========================================================================================================================================================
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+verb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+for s in verb_ss:
+        print("Verb Phrases",s)
+
+
+
+================================================================================================================================================
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP
+  """
+  
+================================================================================================================================================
+ 
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+  
+nounGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+
+
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+#for s in verb_ss:
+#       print("Verb Phrases",s)
+
+====================================================================================
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+} "
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees()]
+for s in noun_ss:
+       print("Noun Phrases",s.replace('"',""))
+		
+
+		
+================================================================================================
+
+ print s
+[('research', 'NN')]
+>>> print s[0]
+[
+>>> print s[1]
+(
+>>> type(s)
+<type 'str'>
+
+   print("Noun Phrases",s[3:-9])
+==================================================================================================
+
+
+
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+        print("Noun Phrases",s)
+#for s in verb_ss:
+#       print("Verb Phrases",s)
+
+import re
+re.findall(r"'(.*?)'", s, re.DOTALL)
+==================================================================================================================
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP
+  
+==================================================================================================================
+#verbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*><DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*><DT|JJ|NN.*>}"
+
+==================================================================================================================================
+
+example = [0,1,2,3,4,5,6,7,8,9]
+example = [4,8]
+
+
+re.findall(r"'(.*?)'", strs, re.DOTALL)
+
+==========================================================================================================================
+Step-1
+========================
+import nltk
+import re
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+
+for s in noun_ss:
+       print(re.findall(r"'(.*?)'", s, re.DOTALL))
+
+     print(re.findall(r"'(.*?)'", s, re.DOTALL))
+
+=========================================================================================================================
+Step-2
+========================
+
+import nltk
+import re
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+      # print(re.findall(r"'(.*?)'", s, re.DOTALL))
+   
+  # print(re.sub('[^ a-zA-Z0-9]', '', s))
+  
+  # p = re.sub('[^ a-zA-Z0-9]', '', s)
+   #print(p)
+   
+  print(re.sub('[^ a-zA-Z0-9|{NN}]', '', s)) 
+
+   
+==============================================================================================================================================
+   
+  
+import nltk
+import re
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+      # print(re.findall(r"'(.*?)'", s, re.DOTALL))
+   
+  # print(re.sub('[^ a-zA-Z0-9]', '', s))
+  
+   p = re.sub('[^ a-zA-Z0-9]', '', s)
+   #print(p)
+   
+  # print(p.replace("NN", ""))
+  
+   p1 = p.replace("NN", "")
+   p2 = p1.replace("DT", "")
+   p3 = p2.replace("JJ", "")
+   p4 = p3.replace("S", "")
+   p5 = p4.replace("P", "")
+    print(p5)
+   
+=========================================================================================================================================================
+REGEX_FINAL(REMOVING PHARSE)NOUN_PHRASE
+===========================================================================================================================================================
+import nltk
+import re
+
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+for s in noun_ss:
+   p = re.sub('[^ a-zA-Z0-9]', '', s)
+   p1 = p.replace("NN", "")
+   p2 = p1.replace("DT", "")
+   p3 = p2.replace("JJ", "")
+   p4 = p3.replace("S", "")
+   p5 = p4.replace("P", "")
+   print(p5)
+   
+ 
+===============================================================================================================================================================================
+REGEX_FINAL(REMOVING PHARSE)VERB_PHRASE
+=================================================================================================================================================================== 
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+verb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in verb_ss:
+   p = re.sub('[^ a-zA-Z0-9]', '', s)
+   p1 = p.replace("NN", "")
+   p2 = p1.replace("DT", "")
+   p3 = p2.replace("JJ", "")
+   p4 = p3.replace("IN", "")
+   p5 = p4.replace("VB", "")
+   p6 = p5.replace("VBZ", "")
+   p7 = p6.replace("VBD", "")
+   p8 = p7.replace("VP", "")
+   p9 = p8.replace("P", "")
+   p10 = p9.replace("S", "")
+   p11 = p10.replace("Z", "")
+   p12 = p11.replace("D", "")
+   print(p12)
+=======================================================================================================================================================================================
+
+import nltk
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+verb_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "VP"]
+
+for s in verb_ss:
+   p = re.sub('[^ a-zA-Z0-9]', '', s)
+   repls = {'NN' : '', 'DY' : '',  'JJ' : '', 'NN' : '' ,'IN' : '', 'VB' : '','VBZ' :'', 'VBD' :'', 'VP' : '', 'P' : '','S' : '', 'Z' : '', 'D' : ''}
+   reduce(lambda a, kv: a.replace(*kv), repls.iteritems(), p)
+  
+
+   
+====================================================================================================================================================================  
+ REFER_CODE(1)(NOUN_PHARSES)
+=============================================================================
+import nltk
+import re
+
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+sent ="The yellow house is for sale."
+
+sent = "The glistening snow covered the field."
+
+
+sent = "Should we buy the yellow house?"
+
+sent = "Lisa gave the little boy a candy."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "NP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Noun Phrases", k)
+
+for i in k:
+    print(i)
+
+=================================================================
+  REFER_CODE(2)(NOUN_PHARSES)
+=============================================================================
+import nltk
+#sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+sent = "She was walking quickly to the mall."
+
+sent = "You can call me when you need a ride."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+
+
+=================================================================
+   
+   
+   print(p1)
+  
+  
+  repls = {'hello' : 'goodbye', 'world' : 'earth'}
+   s = 'hello, world'
+   reduce(lambda a, kv: a.replace(*kv), repls.iteritems(), s)
+  
+  {'cafe':'tea', 'tea':'cafe', 'like':'prefer'}
+
+  p1 = re.sub('[^NN]', '', p)
+   print(p1)
+   
+ 
+   
+   
+   
+   d = { "cat": "dog", "dog": "pig"}
+mySentence = "This is my cat and this is my dog."
+replace_all(mySentence, d)
+print(mySentence)
+======================================================================================================================================================================================
+
+	
+import nltk
+import re
+sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+#sent = "The cat ran and ate the mouse"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<DT|JJ|NN.*>+}"
+#verbGrammar = "VP: {<VB.*><NP|PP|CLAUSE>+$}"
+parser = nltk.RegexpParser(nounGrammar)
+#vparser = nltk.RegexpParser(verbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+#vt = vparser.parse(nltk.pos_tag(words))
+noun_ss = [str(s.leaves()) for s in t.subtrees() if s.label() == "NP"]
+#verb_ss = [str(s.leaves()) for s in vt.subtrees() if s.label() == "VP"]
+
+for s in noun_ss:
+      # print(re.findall(r"'(.*?)'", s, re.DOTALL))
+   
+  # print(re.sub('[^ a-zA-Z0-9]', '', s))
+  
+   p = re.sub('[^ a-zA-Z0-9]', '', s)
+   print(p)
+   
+===================================================================================================================================================================================
+
+
+
+   print(p.replace('DT|NN|NNP|JJ|NNS', ''))
+   
+   
+x = p.replace("NN", "")
+ print (x)
+  
+   
+   
+>>> s = "Adam'sApple"
+>>> x = s.replace("'", "")
+>>> print x
+
+
+
+
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP
+  """
+   
+==================================================================================================================================================
+
+import nltk
+#sent = "This article provides a review of the literature on clinical correlates of awareness in dementia. Most inconsistencies were found with regard to an associationbetween depression and higher levels of awareness. Dysthymia, but not major depression, is probably related to higher levels of awareness. Anxiety also appears to be related to higher levels of awareness. Apathy and psychosis are frequently present in patients with less awareness, and may share common neuropathological substrates withawareness. Furthermore, unawareness seems to be related to difficulties in daily life functioning, increased caregiver burden, and deterioration in global dementia severity. Factors that may be of influence on the inconclusive data are discussed, as are future directions of research."
+
+sent = "She was walking quickly to the mall."
+
+sent = "Uma is coming with us to the movie"
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+#VerbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*>|<DT|JJ|NN.*>} "
+
+#verbGrammar = "VP: {<VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*><DT|JJ|NN.*><VB.*><DT|JJ|NN.*>|<IN><DT|JJ|NN.*><DT|JJ|NN.*>}"
+
+
+VerbGrammar = "VP:{<VB.*><DT|JJ|NN.*>+|<IN><DT|JJ|NN.*>+|<DT|JJ|NN.*>+<VB.*><DT|JJ|NN.*>+|<IN><DT|JJ|NN.*>+|<DT|JJ|NN.*>+$}"
+
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+	
+=============================================================================================================================================================
+3)https://www.k12reader.com/term/verb-phrase/
+4)http://examples.yourdictionary.com/verb-phrase-examples.html
+
+1) https://www.tutorvista.com/english/verb-phrase-examples
+2)https://rmitenglishworldwide.com/blog/sentence-structure-focus-verbs
+5)http://examples.yourdictionary.com/verb-phrase-examples.html
+
+
+import nltk
+
+#sent = "lars might need some help with his car."
+
+#sent ="We have gotten a lot of rainfall lately."
+
+#sent ="You can call me when you need a ride"
+
+#sent = "Mom and Dad are going to France in the springtime."
+
+#sent = "The Meyers have been taking their dog with them on trips"
+
+#sent = "Despite our reservations, we did go out in the snowstorm."
+
+
+case 1: "is docter avialable tommorow?."
+case 2: "at what time probably he will be avialable." 
+
+
+
+
+sent = "at what time probably he will be avialable."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<MD>|<R.*>|<VB.*>+}"
+
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+	            
+===========================================================================================================================
+https://www.really-learn-english.com/english-noun-phrases.html
+
+
+
+http://englishsentences.com/noun-phrase/
+http://www.softschools.com/examples/grammar/noun_phrases_examples/65/
+
+
+import nltk
+import re
+
+#sent = "Grandma cooked a meal for ten people, even though there were only four of us"
+
+sent = "The glistening snow covered the field."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+nounGrammar = "NP: {<PDT>|<IN>|<RB>|<PRP$>|<DT|JJ|NN.*>+}"
+parser = nltk.RegexpParser(nounGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "NP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Noun Phrases", k)
+
+for i in k:
+    print(i)
+
+================================================================================================================================
+
+
+
+	
+	

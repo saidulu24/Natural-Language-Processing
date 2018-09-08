@@ -1,0 +1,72 @@
+https://github.com/spoddutur/syntaxnet
+
+=============================================================================================================================================================
+3)https://www.k12reader.com/term/verb-phrase/
+4)http://examples.yourdictionary.com/verb-phrase-examples.html
+
+1) https://www.tutorvista.com/english/verb-phrase-examples
+2)https://rmitenglishworldwide.com/blog/sentence-structure-focus-verbs
+5)http://examples.yourdictionary.com/verb-phrase-examples.html
+
+
+import nltk
+
+#sent = "lars might need some help with his car."
+
+#sent ="We have gotten a lot of rainfall lately."
+
+#sent ="You can call me when you need a ride"
+
+#sent = "Mom and Dad are going to France in the springtime."
+
+#sent = "The Meyers have been taking their dog with them on trips"
+
+#sent = "Despite our reservations, we did go out in the snowstorm."
+
+
+case 1: "is docter avialable tommorow?."
+case 2: "at what time probably he will be avialable." 
+
+
+
+
+sent = "at what time probably he will be avialable."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<MD>|<R.*>|<VB.*>+}"
+
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+	            
+===========================================================================================================================
+http://pydoc.net/sopex/0.1/
+https://pypi.org/project/sopex/
+https://github.com/codemaniac/sopex
+
+import sopex
+sentence = 'A rare black squirrel has become a regular visitor to a suburban garden'
+triplet = sopex.extract(sentence)
+print triplet.subject, triplet.predicate, triplet.object
+
+
+
+https://www.quora.com/How-can-I-extract-triple-subjects-objects-and-predicates
+
+https://thenextweb.com/dd/2016/05/12/google-just-open-sourced-something-called-parsey-mcparseface-change-ai-forever/
+
+https://github.com/agentile/PHP-Stanford-NLP

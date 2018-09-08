@@ -1,0 +1,94 @@
+package src.SPARKSQL
+
+import org.apache.spark.{SparkConf, SparkContext}
+
+/**
+  * Created by SAI on 2/18/2018.
+  */
+object Demo {/*
+
+  def main(args: Array[String]): Unit = {
+
+
+    val conf = new SparkConf().setMaster("local[*]").setAppName("testapp")
+    val ctx = new SparkContext(conf)
+
+
+    //val irdd = ctx.textFile(args(0))
+
+    val sQLContext = new SQLContext(ctx)
+    import sQLContext.implicits._
+
+    // print(args(0))
+    val iDF = sQLContext.read.format("csv").option("header","true").load(args(0))
+
+    // iDF.printSchema()
+    iDF.show()
+
+    // val map = Map("RELAFFIL" -> "a", "SATVR25" -> "a2")
+    //  iDF.na.fill(map).show()
+
+    iDF.na.replace(iDF.columns,Map("NULL" -> "0")).show()
+
+
+
+    // val iDF2 = iDF.na.fill("a",Seq("RELAFFIL"))
+    //         iDF.na.fill("a2",Seq("SATVR25")).show()
+
+    // val iDF2 = iDF.na.fill("a"),select(col("RELAFFIL")).show()
+
+    val iDF2 = iDF.select(col("RELAFFIL"),col("SATVR25"),col("SATVR75"),col("SATWR25"))
+    val iDF3 = iDF2.na.replace(iDF2.columns,Map("NULL" -> "1")).show()
+
+
+    // val iDF4 = iDF.groupBy("INSTNM").agg(countDistinct("CITY")).show()//foreach(println)
+
+    //  val iDF4 = iDF.groupBy("CITY").agg(count("CITY")).show()
+
+
+    val IDF5 = iDF.groupBy(col("CITY")).agg(count("CITY")).sort("CITY").show()
+
+    // val IDF6 = IDF5.filter("CITY = 3").show()
+    // df.filter($"foo".contains("bar"))
+
+    val IDF6 = iDF.filter(col("CITY").contains("Normal")).show()
+
+    val IDF7 = iDF.filter(col("LOCALE").contains("22")).show()
+
+    val IDF8 = iDF.filter(col("CONTROL").contains("3"))//.show()
+    val IDF9 = iDF.filter(col("LOCALE").contains("21"))//.show()
+
+    val IDF10 = IDF8.unionAll(IDF9)//.show()
+    IDF10.select(col("CONTROL"),col("LOCALE")).dropDuplicates() //.show()
+
+    val IDF11 = IDF10.groupBy(col("CONTROL")).agg(sum("CONTROL"),avg("CONTROL")).show()
+
+    //  val IDF12 = iDF.filter($"INSTNM".like("college%")).show()
+
+    val IDF12 = iDF.filter(col("INSTNM").contains(" ")).show()
+
+
+    /* TRIM FUNCTION */
+    //  val df2 = iDF.withColumn("hour", hour(col("timestamp_column")))
+    val DF2 = iDF.withColumn("STABBR_1", trim(iDF("STABBR"))).show()
+
+    val IDF13 = iDF.withColumn("_tmp", split($"INSTURL", "\\.")).select(
+      $"_tmp".getItem(0).as("col1"),
+      $"_tmp".getItem(1).as("col2"),
+      $"_tmp".getItem(2).as("col3")
+    ).drop("_tmp").show()
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+*/
+}

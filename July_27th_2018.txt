@@ -1,0 +1,51 @@
+WORD COUNT PROGRAM CODE :
+==========================================================
+
+import sys
+from operator import add
+from pyspark import SparkContext, SparkConf
+
+# create Spark context with Spark configuration
+conf = SparkConf().setAppName("Spark Count").setMaster("local")
+sc = SparkContext(conf=conf)
+
+# read in text file and split each document into words
+inputrdd = sc.textFile('C://Users//saidulu.b//Downloads//dataset.txt')
+
+docs = inputrdd.flatMap(lambda doc: doc.split())
+
+wordcount = docs.map(lambda word:(word,1)).reduceByKey(lambda x,y: x+y).map(lambda x: (x[1], x[0])).sortByKey(False)
+
+for word in wordcount.collect():
+ print(word)
+
+========================================================================================================================================
+Final code in normal terminology 
+========================================================
+import sys
+from operator import add
+from pyspark import SparkContext, SparkConf
+
+# create Spark context with Spark configuration
+conf = SparkConf().setAppName("Spark Count").setMaster("local")
+sc = SparkContext(conf=conf)
+
+# read in text file and split each document into words
+inputrdd = sc.textFile('C://Users//saidulu.b//Downloads//dataset.txt')
+
+docs = inputrdd.flatMap(lambda doc: doc.split())
+
+words = docs.map(lambda word:(word,1))
+
+keyval = words.reduceByKey(lambda key,value: key+value)
+pair = keyval.map(lambda key: (key[1],key[0])).sortByKey(False)
+
+for i in pair.collect():
+    print(i)
+==============================================================================================================================
+
+
+
+cmd.exe
+
+	

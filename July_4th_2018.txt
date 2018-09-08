@@ -1,0 +1,108 @@
+TOPIC MINIG
+========================================
+
+
+import nltk
+from nltk import CFG
+
+grammar = r"""
+   S: {<NP><VP>+}
+   NP:{<NN|NNP|NNPS|NNS>}
+   VP:{<VB|VBD|VBG|VBN|VBP|VBZ><PP|NP|ADJP>} 
+   ADJP:{<JJ|JJR|JJS>} 
+  """
+
+text = 'Mary saw Bob'
+
+sent = text.split()
+rd_parser = nltk.RecursiveDescentParser(grammar)
+for p in rd_parser.parse(sent):
+    print(p)
+
+	
+================================================================================================================================
+
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+   S: {<NP><VP>+}
+   NP:{<NN|NNP|NNPS|NNS>}
+   VP:{<VB|VBD|VBG|VBN|VBP|VBZ><PP|NP|ADJP>} 
+   ADJP:{<JJ|JJR|JJS>} 
+  """
+ 
+cp = nltk.RegexpParser(grammar)
+s = "Alice chased the rabbit."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)	
+	
+==================================================================================================================================
+	
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP 
+  """
+cp = nltk.RegexpParser(grammar)
+s = "Alice chased the rabbit."
+for t in sent_tokenize(s):
+    text = nltk.pos_tag(word_tokenize(t))
+    print cp.parse(text)	
+	
+============================================================================================================================================================================
+
+import nltk
+from nltk import CFG
+
+grammar = CFG.fromstring("""
+  S -> NP VP
+  VP -> V NP | V NP PP
+  V -> "saw" | "ate"
+  NP -> "John" | "Mary" | "Bob" | Det N | Det N PP
+  Det -> "a" | "an" | "the" | "my"
+  N -> "dog" | "cat" | "cookie" | "park"
+  PP -> P NP
+  P -> "in" | "on" | "by" | "with"
+  """)
+
+text = 'Mary saw Bob'
+
+sent = text.split()
+rd_parser = nltk.RecursiveDescentParser(grammar)
+for p in rd_parser.parse(sent):
+    print(p)
+	
+=======================================================================================================================================================================
+
+import nltk
+
+sent = "at what time probably he will be avialable."
+words = nltk.word_tokenize(sent)
+nltk.pos_tag(words)
+
+VerbGrammar = "VP: {<MD>|<R.*>|<VB.*>+}"
+
+parser = nltk.RegexpParser(VerbGrammar)
+t = parser.parse(nltk.pos_tag(words))
+
+k = []
+for s in t.subtrees():
+    if s.label() == "VP":
+        j = []
+        for ss in s.leaves():
+            j.append(ss[0])
+        t = ','.join(map(str, j))
+        k.append(str(t.replace(',',' ')))
+
+print("Verb Phrases", k)
+
+for i in k:
+    print(i)
+	
+===================================================================	
